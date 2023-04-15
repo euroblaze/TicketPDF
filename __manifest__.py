@@ -3,7 +3,7 @@
     "version": "1.0",
     "author": "Shumal",
     "category": "Tools",
-    "website": "https://odootech.in",
+    "website": "https://simplify-erp.de",
     "license": "AGPL-3",
     "summary": "Generate a PDF from a helpdesk ticket description",
     "depends": ["base", "helpdesk"],
