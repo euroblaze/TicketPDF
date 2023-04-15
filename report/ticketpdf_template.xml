@@ -1,0 +1,17 @@
+<odoo>
+    <template id="report_ticketpdf_document">
+        <!-- Your report template design -->
+    </template>
+
+    <report
+        id="ticketpdf_report"
+        model="helpdesk.ticket"
+        string="Generate PDF"
+        report_type="qweb-pdf"
+        name="ticketpdf.report_ticketpdf_document"
+        file="ticketpdf.report_ticketpdf_document"
+        print_report_name="'%s.%s.pdf' % (object.number, object.title.replace(' ', '_'))"
+        attachment_use="True"
+        attachment="'%s.%s.pdf' % (object.number, object.title.replace(' ', '_'))"
+    />
+</odoo>
