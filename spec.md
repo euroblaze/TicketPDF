@@ -40,10 +40,11 @@ Given a helpdesk ticket with the following details:
 
 - Ticket number: 12345
 - Title: Network Issue
-- Description: <p>There is an intermittent network issue...</p>
+- Description: ``There is an intermittent network issue...</p>
 - Due-date: 2023-05-01
 - Responsible assignee: John Doe (john.doe@example.com)
-- The generated PDF file should be named 12345.Network_Issue.pdf and include:
+
+The generated PDF file should be named 12345.Network_Issue.pdf and include:
 
 - A header with the company logo (300x100 px).
 - The ticket description with maintained HTML formatting.
