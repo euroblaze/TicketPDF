@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models,api
 
 class TicketPdfReport(models.AbstractModel):
     _name = "report.ticketpdf.report_ticketpdf_document"

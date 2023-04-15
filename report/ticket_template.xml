@@ -1,0 +1,95 @@
+<odoo>
+    <data>
+        <template id="report_ticket_pdf_document">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-name="TicketPDF.external_layout_standard">
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                    <div class="row">
+                        <div class="col-3 mb4 text-center" style="height:100px;width:80px;">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                 alt="Logo" style="max-height:100px;"/>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6" name="company_address">
+                            <span t-if="company.company_details" t-field="company.company_details"/>
+                            <span t-else="" t-field="company.partner_id"
+                                  t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        </div>
+                    </div>
+                    <div style="border-bottom: 1px solid black; width:100%;margin-top:10px;"/>
+
+                    <div class="main">
+
+
+                        <h2><b>Ticket number:</b> <span t-field="o.ticket_ref"/></h2>
+                        <h4><b>Title:</b> <span t-field="o.name"/></h4>
+                        <h4><b>Description:</b> <span t-field="o.description"/></h4>
+                        <h4><b>Due-date:</b> <span t-field="o.sla_deadline"/></h4>
+                        <h4><b>Responsible assignee:</b> <span t-field="o.user_id"/>(<spna t-field="o.user_id.email"/>)</h4>
+
+
+                    </div>
+
+                </div>
+
+                <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+                     t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                     t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                     t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <div class="pt-5">
+                        <!-- This div ensures that the address is not cropped by the header. -->
+                        <t t-call="web.address_layout"/>
+                    </div>
+                    <t t-out="0"/>
+                </div>
+
+
+                <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                    <div style="border-top: 1px solid black;">
+                        <div>
+                            <span style="float:left;width:50%" t-field="o.name"/>
+                        </div>
+
+                        <div style="float:right;text-align:right;">
+                            <span style="float:right;">Due-date:
+                                <spna t-field="o.sla_deadline"/>
+                            </span>
+                            <br/>
+                            <span t-field="o.user_id"/>
+                            <br/>
+                            Page:
+                            <span class="page"/>
+                            /
+                            <span class="topage"/>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+            </t>
+
+        </template>
+        <template id="report_ticket_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="TicketPDF.report_ticket_pdf_document"
+                       t-lang="o.partner_id.sudo().lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

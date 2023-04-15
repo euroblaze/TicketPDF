@@ -1,17 +1,14 @@
 <odoo>
-    <template id="report_ticketpdf_document">
-        <!-- Your report template design -->
-    </template>
-
-    <report
-        id="ticketpdf_report"
-        model="helpdesk.ticket"
-        string="Generate PDF"
-        report_type="qweb-pdf"
-        name="ticketpdf.report_ticketpdf_document"
-        file="ticketpdf.report_ticketpdf_document"
-        print_report_name="'%s.%s.pdf' % (object.number, object.title.replace(' ', '_'))"
-        attachment_use="True"
-        attachment="'%s.%s.pdf' % (object.number, object.title.replace(' ', '_'))"
-    />
+    <record id="ticket_report_pdf" model="ir.actions.report">
+        <field name="name">Generate PDF</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">TicketPDF.report_ticket_pdf</field>
+        <field name="report_file">TicketPDF.report_ticket_pdf</field>
+<!--        <field name="print_report_name">(object._get_report_base_filename())</field>-->
+        <field name="print_report_name">(object.ticket_ref + '.' + object.name)</field>
+        <field name="attachment">(str(object.name) +'.pdf')</field>
+        <field name="binding_model_id" ref="helpdesk.model_helpdesk_ticket"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
