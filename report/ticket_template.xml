@@ -24,26 +24,9 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-6" name="company_address">
-                            <span t-if="company.company_details" t-field="company.company_details"/>
-                            <span t-else="" t-field="company.partner_id"
-                                  t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                        </div>
-                    </div>
+
                     <div style="border-bottom: 1px solid black; width:100%;margin-top:10px;"/>
 
-                    <div class="main">
-
-
-                        <h2><b>Ticket number:</b> <span t-field="o.ticket_ref"/></h2>
-                        <h4><b>Title:</b> <span t-field="o.name"/></h4>
-                        <h4><b>Description:</b> <span t-field="o.description"/></h4>
-                        <h4><b>Due-date:</b> <span t-field="o.sla_deadline"/></h4>
-                        <h4><b>Responsible assignee:</b> <span t-field="o.user_id"/>(<spna t-field="o.user_id.email"/>)</h4>
-
-
-                    </div>
 
                 </div>
 
@@ -56,21 +39,44 @@
                         <t t-call="web.address_layout"/>
                     </div>
                     <t t-out="0"/>
+                    <div class="main">
+
+
+                        <h2>
+                            <b>Ticket number:</b>
+                            <span t-field="o.ticket_ref"/>
+                        </h2>
+                        <h5>
+                            <b>Title:</b>
+                            <span t-field="o.name"/>
+                        </h5>
+                        <h5>
+                            <b>Description:</b>
+                            <span t-field="o.description"/>
+                        </h5>
+
+                    </div>
                 </div>
 
 
                 <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
                     <div style="border-top: 1px solid black;">
+
                         <div>
                             <span style="float:left;width:50%" t-field="o.name"/>
                         </div>
 
                         <div style="float:right;text-align:right;">
+
                             <span style="float:right;">Due-date:
                                 <spna t-field="o.sla_deadline"/>
                             </span>
                             <br/>
-                            <span t-field="o.user_id"/>
+                            <span style="float:right;">Responsible assignee:
+                                <span t-field="o.user_id"/>
+                                (<span t-field="o.user_id.email"/>)
+                            </span>
+
                             <br/>
                             Page:
                             <span class="page"/>
